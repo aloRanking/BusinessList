@@ -1,10 +1,14 @@
+import 'package:businesslisting/controllers/addBusiness_controller.dart';
 import 'package:businesslisting/widgets/button_widget.dart';
 import 'package:businesslisting/widgets/custom_field.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 class AddBusinessScreen extends StatelessWidget {
   final _businessFormKey = GlobalKey<FormState>();
+  final AddBusinessController _addBusinessController = Get.put(
+      AddBusinessController());
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +70,9 @@ class AddBusinessScreen extends StatelessWidget {
               },
             ),
             FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  _addBusinessController.getImage();
+                },
                 child: Row(
                   children: [
                     FaIcon(FontAwesomeIcons.fileImage),
@@ -76,6 +82,13 @@ class AddBusinessScreen extends StatelessWidget {
                     ),
                   ],
                 )),
+            Obx(() {
+              return Container(
+                child: _addBusinessController.image == null
+                    ? Text('No image selected.')
+                    : Image.file(_addBusinessController.image.value),
+              );
+            }),
             SizedBox(
               height: 30,
             ),
