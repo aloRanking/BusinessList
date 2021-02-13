@@ -65,6 +65,15 @@ class AuthController extends GetxController {
         email: emailController.text.trim(),
         password: passwordController.text,
       );
+
+      if (userCredential != null) {
+        _firebaseUser.value = userCredential.user;
+
+
+        Get.toNamed('/dashView');
+      }
+
+
     } catch (e) {
       Get.back();
 
