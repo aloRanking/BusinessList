@@ -36,38 +36,41 @@ class AddBusinessScreen extends StatelessWidget {
             CustomTexfield(
               labelText: 'Name',
               //prefixIconData: Icons.mail_ou,
-              //controller: _authController.emailController,
-              keyBoardType: TextInputType.emailAddress,
+              controller: _addBusinessController.nameController,
+              keyBoardType: TextInputType.name,
               onValidate: (value) {
                 if (value.isEmpty) {
                   return 'Name field can\'t be blank';
                 }
                 return null;
               },
+              // onSave: (value)=> _addBusinessController.business.name = value.trim(),
             ),
             CustomTexfield(
               labelText: 'Address',
               //prefixIconData: Icons.mail_ou,
-              //controller: _authController.emailController,
-              keyBoardType: TextInputType.emailAddress,
+              controller: _addBusinessController.addressController,
+              keyBoardType: TextInputType.name,
               onValidate: (value) {
                 if (value.isEmpty) {
                   return 'Address field can\'t be blank';
                 }
                 return null;
               },
+              // onSave: (value)=> _addBusinessController.business.address = value.trim(),
             ),
             CustomTexfield(
               labelText: 'Type of Business',
               //prefixIconData: ,
-              //controller: _authController.emailController,
-              keyBoardType: TextInputType.emailAddress,
+              controller: _addBusinessController.typeController,
+              keyBoardType: TextInputType.name,
               onValidate: (value) {
                 if (value.isEmpty) {
-                  return 'Address field can\'t be blank';
+                  return 'Type of Business field can\'t be blank';
                 }
                 return null;
               },
+              // onSave: (value)=> _addBusinessController.business.type = value.trim(),
             ),
             FlatButton(
                 onPressed: () {
@@ -97,7 +100,9 @@ class AddBusinessScreen extends StatelessWidget {
               hasBorder: false,
               onTap: () {
                 if (_businessFormKey.currentState.validate()) {
-                  //_authController.login();
+                  // _businessFormKey.currentState.save();
+
+                  _addBusinessController.createBusiness();
                 }
               },
             ),
