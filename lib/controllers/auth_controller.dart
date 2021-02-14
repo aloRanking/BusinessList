@@ -15,10 +15,15 @@ class AuthController extends GetxController {
   TextEditingController regPasswordController = TextEditingController();
   var isPasswordVisible = false.obs;
 
-  /* @override
+
+  @override
   void onInit() {
-    _firebaseUser.bindStream(_auth.onAuthStateChanged);
-  }*/
+    // _firebaseUser.bindStream(_auth.onAuthStateChanged);
+
+
+    emailController.text = 'alo8@gmail.com';
+    passwordController.text = '123456';
+  }
 
   void createUser() async {
     Get.dialog(Center(child: CircularProgressIndicator()),

@@ -19,6 +19,7 @@ class CustomTexfield extends StatelessWidget {
   final bool isMultilnes;
   final IconData suffixIconData;
   final Function onTap;
+  final Function onChanged;
 
   CustomTexfield({
     Key key,
@@ -38,7 +39,7 @@ class CustomTexfield extends StatelessWidget {
     this.labelText,
     this.isMultilnes = false,
     this.suffixIconData,
-    this.onTap,
+    this.onTap, this.onChanged,
   }) : super(key: key);
 
   @override
@@ -54,6 +55,7 @@ class CustomTexfield extends StatelessWidget {
         validator: onValidate,
         minLines: minLines,
         maxLines: maxLines ?? 1,
+        onChanged: onChanged,
         decoration: InputDecoration(
           hintText: hintText,
           labelText: labelText,

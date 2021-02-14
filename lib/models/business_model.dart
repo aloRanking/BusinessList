@@ -6,8 +6,9 @@ class Business {
   String address;
   String type;
   bool isActive;
-  String coordinates;
-
+  var coordinates;
+  String imgurl;
+  
   Business({
     this.name,
     this.email,
@@ -15,7 +16,9 @@ class Business {
     this.type,
     this.isActive,
     this.coordinates,
+    this.imgurl,
   });
+
 
   Business copyWith({
     String name,
@@ -23,7 +26,8 @@ class Business {
     String address,
     String type,
     bool isActive,
-    String coordinates,
+    var coordinates,
+    String imgurl,
   }) {
     return Business(
       name: name ?? this.name,
@@ -32,6 +36,7 @@ class Business {
       type: type ?? this.type,
       isActive: isActive ?? this.isActive,
       coordinates: coordinates ?? this.coordinates,
+      imgurl: imgurl ?? this.imgurl,
     );
   }
 
@@ -42,7 +47,8 @@ class Business {
       'address': address,
       'type': type,
       'isActive': isActive,
-      'coordinates': coordinates,
+      'coordinates': coordinates?.toMap(),
+      'imgurl': imgurl,
     };
   }
 
@@ -55,7 +61,8 @@ class Business {
       address: map['address'],
       type: map['type'],
       isActive: map['isActive'],
-      coordinates: map['coordinates'],
+      coordinates: List.from(map['coordinates']),
+      imgurl: map['imgurl'],
     );
   }
 
@@ -64,9 +71,10 @@ class Business {
   factory Business.fromJson(String source) =>
       Business.fromMap(json.decode(source));
 
+
   @override
   String toString() {
-    return 'Business(name: $name, email: $email, address: $address, type: $type, isActive: $isActive, coordinates: $coordinates)';
+    return 'Business(name: $name, email: $email, address: $address, type: $type, isActive: $isActive, coordinates: $coordinates, imgurl: $imgurl)';
   }
 
   @override
@@ -79,16 +87,18 @@ class Business {
         o.address == address &&
         o.type == type &&
         o.isActive == isActive &&
-        o.coordinates == coordinates;
+        o.coordinates == coordinates &&
+        o.imgurl == imgurl;
   }
 
   @override
   int get hashCode {
     return name.hashCode ^
-        email.hashCode ^
-        address.hashCode ^
-        type.hashCode ^
-        isActive.hashCode ^
-        coordinates.hashCode;
+    email.hashCode ^
+    address.hashCode ^
+    type.hashCode ^
+    isActive.hashCode ^
+    coordinates.hashCode ^
+    imgurl.hashCode;
   }
 }
