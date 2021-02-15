@@ -21,8 +21,8 @@ class AuthController extends GetxController {
     // _firebaseUser.bindStream(_auth.onAuthStateChanged);
 
 
-    emailController.text = 'alo8@gmail.com';
-    passwordController.text = '123456';
+    /* emailController.text = 'alo8@gmail.com';
+    passwordController.text = '123456';*/
   }
 
   void createUser() async {
