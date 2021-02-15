@@ -75,7 +75,7 @@ class AuthController extends GetxController {
         _firebaseUser.value = userCredential.user;
 
 
-        Get.toNamed('/dashView');
+        Get.offNamed('/dashView');
       }
 
 

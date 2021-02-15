@@ -14,20 +14,16 @@ import 'auth_controller.dart';
 class AddBusinessController extends GetxController {
   final AuthController _authController = Get.find();
   final DashboardController _dashboardController = Get.find();
-  var image = File('hii.txt').obs;
-  final picker = ImagePicker();
-  String downloadUrl;
-
-  //final fireStore = FirebaseFirestore.instance;
-  Position position;
-  Business business = Business();
-
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController typeController = TextEditingController();
-
   FirebaseStorage storage = FirebaseStorage.instance;
 
+  var image = File('hii.txt').obs;
+  final picker = ImagePicker();
+  String downloadUrl;
+  Position position;
+  Business business = Business();
   var timestamp = DateTime
       .now()
       .millisecondsSinceEpoch;
@@ -48,9 +44,18 @@ class AddBusinessController extends GetxController {
     business.isActive = true;
     business.email = _authController.user.email;
     business.imgurl = await uploadFile(image.value);
-    business.coordinates = [position.latitude, position.longitude];
+    business.coordinates = '${position.latitude}, ${position.longitude}';
 
-    _dashboardController.fireStore.collection('business').add(business.toMap());
+    _dashboardController.fireStore.collection('business').add({
+      'name': business.name,
+      'address': business.address,
+      'type': business.type,
+      'isActive': isActive.value,
+      'imgurl': business.imgurl,
+      'email': _authController.user.email,
+      'coordinates': business.coordinates
+      //'coordinates': GeoPoint(position.latitude, position.longitude)
+    });
 
     Get.snackbar(
       "Business Added",
@@ -66,24 +71,22 @@ class AddBusinessController extends GetxController {
     nameController.clear();
     addressController.clear();
     typeController.clear();
-    // image.close();
+    //image.value = File('');
   }
 
   void updateBusiness(var docId) async {
     print(docId);
 
-    business.name = nameController.text;
-    business.address = addressController.text;
-    business.type = typeController.text;
-    business.isActive = isActive.value;
-    business.email = _authController.user.email;
+
     // business.imgurl = await uploadFile(image.value);
     //business.coordinates = [position.latitude, position.longitude];
 
-    _dashboardController.fireStore
-        .collection("business")
-        .doc(docId)
-        .update(business.toMap()).then((_) {
+    _dashboardController.fireStore.collection("business").doc(docId).set({
+      'name': business.name,
+      'address': business.address,
+      'type': business.type,
+      'isActive': isActive.value,
+    }, SetOptions(merge: true)).then((_) {
       print("success!");
     });
 
@@ -95,15 +98,14 @@ class AddBusinessController extends GetxController {
       //duration: Duration(milliseconds: 900),
       overlayBlur: 1,
     );
+    Get.back();
+
+    Get.back(result: [business.name, business.address, business.type]);
   }
-
-
 
   void getCurrentPosition() async {
     position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-
-    print(position.longitude.toString());
   }
 
   Future<String> uploadFile(File file) async {

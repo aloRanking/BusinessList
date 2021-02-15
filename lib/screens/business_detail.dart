@@ -1,104 +1,97 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BusinessDetailScreen extends StatelessWidget {
-  /* final String documentId;
 
-
-  BusinessDetail(this.documentId);*/
+  var name = ''.obs;
+  var address = ''.obs;
+  var type = ''.obs;
+  var coordinates = ''.obs;
 
   @override
   Widget build(BuildContext context) {
-    var data = Get.arguments;
-    CollectionReference business =
-        FirebaseFirestore.instance.collection('business');
+    var docData = Get.arguments;
+    print('docData id ${docData.id}');
+
+    name.value = docData['name'];
+    address.value = docData['address'];
+    type.value = docData['type'];
+    coordinates.value = docData['coordinates'];
+
+    //print(coordinates);
+
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Details'),
-        ),
-        body: Container(
-            child: FutureBuilder<DocumentSnapshot>(
-          future: business.doc(data).get(),
-          builder:
-              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-            List<Widget> children;
-
-            if (snapshot.hasError) {
-              children = [Center(child: Text("Something went wrong"))];
-            } else if (snapshot.connectionState == ConnectionState.done) {
-              Map<String, dynamic> docData = snapshot.data.data();
-              children = [
-                // Text("Full Name: ${data['name']} ${data['address']}")
-                Column(
-                  children: [
-                    Container(
-                      height: 200,
-                      //color: Colors.red,
-                      child: Image.network('${docData['imgurl']}'),
-                    ),
-                    SizedBox(height: 30),
-                    Text(
-                      "Business Name: ${docData['name']}",
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-
-                    SizedBox(height: 20),
-
-                    Text(
-                      "Business Address: ${docData['address']}",
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      "Business Type: ${docData['type']}",
-                      style: TextStyle(
-                        fontSize: 18,
-                      ),
-                    ),
-
-                    SizedBox(height: 20),
-
-                    RaisedButton(
-                      onPressed: () {
-                        Get.toNamed('/editBusinessView', arguments: docData);
-                      },
-                      child: Text('Edit'),
-                    ),
-
-                    //Text("Business Name: ${data['name']}"),
-
-                    //Image.network('${data['imgurl']}'),
-                  ],
-                )
-              ];
-            } else {
-              children = <Widget>[
-                Center(
-                  child: SizedBox(
-                    child: CircularProgressIndicator(),
-                    width: 60,
-                    height: 60,
+      appBar: AppBar(
+        title: Text('Details'),
+      ),
+      body: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 200,
+            //color: Colors.red,
+            child: Image.network('${docData['imgurl']}'),
+          ),
+          SizedBox(height: 30),
+          Obx(
+                () =>
+                Text(
+                  "Business Name: ${name.value}",
+                  style: TextStyle(
+                    fontSize: 18,
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 16),
-                  child: Text('a moment...'),
-                )
-              ];
-            }
-            return Center(
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: children,
-              ),
-            );
-          },
-        )));
+          ),
+          SizedBox(height: 20),
+          Obx(
+                () =>
+                Text(
+                  "Business Address: ${address.value} ",
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Obx(
+                () =>
+                Text(
+                  "Business coordinate: ${coordinates.value} ",
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+          ),
+          SizedBox(height: 20),
+          Obx(
+                () =>
+                Text(
+                  "Business Type: ${type.value}",
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+          ),
+          SizedBox(height: 20),
+          RaisedButton(
+            onPressed: () async {
+              var result =
+              await Get.toNamed('/editBusinessView', arguments: docData);
+              if (result == null) {
+                print('no data');
+              } else {
+                name.value = result[0];
+                address.value = result[1];
+                type.value = result[2];
+              }
+            },
+            child: Text('Edit'),
+          ),
+        ],
+      ),
+    );
   }
 }

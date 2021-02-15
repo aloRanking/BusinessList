@@ -7,14 +7,14 @@ import 'package:get/get.dart';
 
 class AddBusinessScreen extends StatelessWidget {
   final _businessFormKey = GlobalKey<FormState>();
-  final AddBusinessController _addBusinessController = Get.put(
-      AddBusinessController());
+  final AddBusinessController _addBusinessController =
+  Get.put(AddBusinessController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add a Business'),
+        title: Text('Add Business'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -35,9 +35,10 @@ class AddBusinessScreen extends StatelessWidget {
           children: [
             CustomTexfield(
               labelText: 'Name',
-              //prefixIconData: Icons.mail_ou,
+
               controller: _addBusinessController.nameController,
               keyBoardType: TextInputType.name,
+
               onValidate: (value) {
                 if (value.isEmpty) {
                   return 'Name field can\'t be blank';
@@ -48,7 +49,7 @@ class AddBusinessScreen extends StatelessWidget {
             ),
             CustomTexfield(
               labelText: 'Address',
-              //prefixIconData: Icons.mail_ou,
+
               controller: _addBusinessController.addressController,
               keyBoardType: TextInputType.name,
               onValidate: (value) {
@@ -61,7 +62,7 @@ class AddBusinessScreen extends StatelessWidget {
             ),
             CustomTexfield(
               labelText: 'Type of Business',
-              //prefixIconData: ,
+
               controller: _addBusinessController.typeController,
               keyBoardType: TextInputType.name,
               onValidate: (value) {
@@ -79,8 +80,9 @@ class AddBusinessScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     FaIcon(FontAwesomeIcons.fileImage),
+                    SizedBox(width: 10),
                     Text(
-                      'Add Image',
+                      'Add an Image',
                       style: TextStyle(fontSize: 16),
                     ),
                   ],
