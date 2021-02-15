@@ -1,32 +1,63 @@
 import 'package:businesslisting/controllers/auth_controller.dart';
 import 'package:businesslisting/controllers/dash_controller.dart';
 import 'package:businesslisting/utils/colors.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 class DashScreen extends StatelessWidget {
   final AuthController _authController = Get.find();
   final DashboardController _dashboardController =
   Get.put(DashboardController());
-  List<StaggeredTile> _staggeredTiles = const <StaggeredTile>[
-    const StaggeredTile.count(2, 2),
-    const StaggeredTile.count(2, 1),
-    const StaggeredTile.count(2, 2),
-    const StaggeredTile.count(4, 1),
-  ];
 
   @override
   Widget build(BuildContext context) {
     List<Widget> _tiles = <Widget>[
-      Obx(() {
-        return DashCard(
-          bgColor: Colors.green,
-          iconData: Icons.widgets,
-          cardTitle: 'Active Business  ${_dashboardController.nActive}',
-        );
-      }),
-      Obx(() {
+      StreamBuilder<QuerySnapshot>(
+          stream: _dashboardController.getActiveBusiness(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return DashCard(
+              bgColor: Colors.green,
+              iconData: Icons.widgets,
+              cardTitle: 'Active Business  ${snapshot.data.docs.length}',
+            );
+          }),
+      StreamBuilder<QuerySnapshot>(
+          stream: _dashboardController.getInActiveBusiness(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return DashCard(
+              bgColor: Colors.red,
+              iconData: Icons.widgets,
+              cardTitle: 'InActive Business  ${snapshot.data.docs.length}',
+            );
+          }),
+      StreamBuilder<QuerySnapshot>(
+          stream: _dashboardController.getRegisteredBusiness(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return DashCard(
+              bgColor: Colors.amber,
+              iconData: Icons.panorama_wide_angle,
+              cardTitle: 'Registered Business  ${snapshot.data.docs.length}',
+            );
+          }),
+
+      /* Obx(() {
         return DashCard(
           bgColor: Colors.red,
           iconData: Icons.widgets,
@@ -39,7 +70,7 @@ class DashScreen extends StatelessWidget {
             iconData: Icons.panorama_wide_angle,
             cardTitle:
             'Rgistered Business  ${_dashboardController.nRegistered}');
-      }),
+      }),*/
       DashCard(
         bgColor: Colors.blue,
         iconData: Icons.map,
@@ -48,7 +79,6 @@ class DashScreen extends StatelessWidget {
           Get.toNamed('/businessListView');
         },
       ),
-
       DashCard(
         bgColor: Colors.purple,
         iconData: Icons.person,
@@ -57,7 +87,6 @@ class DashScreen extends StatelessWidget {
           Get.toNamed('/profileView');
         },
       )
-
     ];
     return Scaffold(
       appBar: AppBar(
@@ -66,40 +95,12 @@ class DashScreen extends StatelessWidget {
       body: Container(
           child: Column(
             children: _tiles,
-          )
-
-        /*StaggeredGridView.count(
-
-          crossAxisCount: 4,
-          staggeredTiles: _staggeredTiles,
-          children: _tiles,
-          mainAxisSpacing: 4.0,
-          crossAxisSpacing: 4.0,
-          padding: const EdgeInsets.all(4.0),
-        )*/
-
-        /*StaggeredGridView.countBuilder(
-          crossAxisCount: 4,
-          itemCount: 5,
-          itemBuilder: (BuildContext context, int index) => new Container(
-              color: Colors.green,
-              child: new Center(
-                child: new CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: new Text('$index'),
-                ),
-              )),
-          staggeredTileBuilder: (int index) =>
-          new StaggeredTile.count(2, index.isEven ? 2 : 1),
-          mainAxisSpacing: 4.0,
-          crossAxisSpacing: 4.0,
-        )*/
-      ),
+          )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.toNamed('/addBusinessView');
         },
-        child: Icon(Icons.person),
+        child: FaIcon(FontAwesomeIcons.pen),
       ),
     );
   }
@@ -144,18 +145,3 @@ class DashCard extends StatelessWidget {
     );
   }
 }
-
-/*
-Column(
-children: [
-
-
-
-Text('${_authController.user.email}'),
-
-RaisedButton(onPressed: (){
-Get.toNamed('/businessListView');
-})
-],
-),
-*/

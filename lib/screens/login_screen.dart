@@ -63,7 +63,7 @@ class LoginScreen extends StatelessWidget {
               margin: EdgeInsets.only(top: 5),
               height: 10,
               width: 100,
-              color: kGreenColor,
+              color: kBlueColor,
             ),
           ],
         ),
@@ -112,7 +112,11 @@ class LoginScreen extends StatelessWidget {
                     if (value.isEmpty) {
                       return 'password field can\'t be blank';
                     }
+                    if (value.length < 6) {
+                      return 'password should be at least 6 characters';
+                    }
                     return null;
+
                   },
                 );
               }),
@@ -123,7 +127,7 @@ class LoginScreen extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.only(top: 10, bottom: 10),
                   child: Text('Forgot Password?',
-                      style: TextStyle(fontSize: 16, color: kGreenColor)),
+                      style: TextStyle(fontSize: 16, color: kBlueColor)),
                 ),
               ),
               ButtonWidget(

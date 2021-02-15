@@ -8,48 +8,45 @@ class DashboardController extends GetxController {
   var nInActive = 0.obs;
   var nRegistered = 0.obs;
 
+
   @override
   void onInit() {
     getActiveBusiness();
     getInActiveBusiness();
     getRegisteredBusiness();
 
+    print('oninit init');
+
     super.onInit();
   }
 
-  Future<void> getActiveBusiness() async {
-    var active = await fireStore
+
+  Stream<dynamic> getActiveBusiness() {
+    var active = fireStore
         .collection('business')
         .where("isActive", isEqualTo: true)
-        .get();
+        .snapshots();
 
-    //List<QuerySnapshot> documents = active.data.docs;
+    return active;
 
-    nActive.value = active.docs.length;
 
-    print(nActive);
   }
 
-  Future<void> getInActiveBusiness() async {
-    var active = await fireStore
+  Stream<dynamic> getInActiveBusiness() {
+    var inActive = fireStore
         .collection('business')
         .where("isActive", isEqualTo: false)
-        .get();
+        .snapshots();
 
-    //List<QuerySnapshot> documents = active.data.docs;
 
-    nInActive.value = active.docs.length;
-
-    print(nInActive);
+    return inActive;
   }
 
-  Future<void> getRegisteredBusiness() async {
-    var active = await fireStore.collection('business').get();
+  Stream<dynamic> getRegisteredBusiness() {
+    var registered = fireStore.collection('business').snapshots();
 
     //List<QuerySnapshot> documents = active.data.docs;
 
-    nRegistered.value = active.docs.length;
-
-    print(nRegistered);
+    return registered;
   }
 }

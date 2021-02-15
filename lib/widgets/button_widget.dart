@@ -14,10 +14,10 @@ class ButtonWidget extends StatelessWidget {
     return Material(
       child: Ink(
         decoration: BoxDecoration(
-          color: hasBorder ? kWhiteColor : kGreenColor,
+          color: hasBorder ? kWhiteColor : kBlueColor,
           borderRadius: BorderRadius.circular(10),
           border: hasBorder
-              ? Border.all(color: kGreenColor, width: 1)
+              ? Border.all(color: kBlueColor, width: 1)
               : Border.fromBorderSide(BorderSide.none),
         ),
         child: InkWell(
@@ -29,7 +29,7 @@ class ButtonWidget extends StatelessWidget {
               child: Text(
                 title,
                 style: TextStyle(
-                    color: hasBorder ? kGreenColor : kWhiteColor,
+                    color: hasBorder ? kBlueColor : kWhiteColor,
                     fontWeight: FontWeight.w600,
                     fontSize: 16),
               ),

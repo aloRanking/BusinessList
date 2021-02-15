@@ -59,21 +59,21 @@ class CustomTexfield extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hintText,
           labelText: labelText,
-          labelStyle: TextStyle(color: kGreenColor),
+          labelStyle: TextStyle(color: kBlueColor),
           filled: true,
           prefixIcon: isMultilnes
               ? null
               : Icon(
                   prefixIconData,
                   size: 18,
-                  color: kGreenColor,
+            color: kBlueColor,
                 ),
           suffixIcon: GestureDetector(
             onTap: onTap,
             child: Icon(
               suffixIconData,
               size: 18,
-              color: kGreenColor,
+              color: kBlueColor,
             ),
           ),
           border: OutlineInputBorder(
@@ -89,7 +89,7 @@ class CustomTexfield extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(
-              color: borderColor ?? kGreenColor,
+              color: borderColor ?? kBlueColor,
             ),
           ),
           errorBorder: OutlineInputBorder(

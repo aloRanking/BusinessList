@@ -37,7 +37,7 @@ class RegisterScreen extends StatelessWidget {
             margin: EdgeInsets.only(top: 5),
             height: 10,
             width: 100,
-            color: kGreenColor,
+            color: kBlueColor,
           ),
         ],
       ),
@@ -85,7 +85,11 @@ class RegisterScreen extends StatelessWidget {
                     if (value.isEmpty) {
                       return 'password field can\'t be blank';
                     }
+                    if (value.length < 6) {
+                      return 'password should be at least 6 characters';
+                    }
                     return null;
+
                   },
                 );
               }),
@@ -117,7 +121,7 @@ class RegisterScreen extends StatelessWidget {
       child: Column(
         children: [
           Text('Have existing Account?',
-              style: TextStyle(fontSize: 16, color: kGreenColor)),
+              style: TextStyle(fontSize: 16, color: kBlueColor)),
           SizedBox(height: 10),
           GestureDetector(
               onTap: () {
@@ -127,7 +131,7 @@ class RegisterScreen extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: kGreenColor))),
+                      color: kBlueColor))),
         ],
       ),
     );
