@@ -39,7 +39,7 @@ class LoginScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Busniess Listing',
+              'Business Listing',
               style: TextStyle(fontSize: 40),
             )
           ],
