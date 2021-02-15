@@ -1,10 +1,28 @@
-# businesslisting
+# Business Listing APP
 
-A new Flutter application.
+An app that allows user to create a list of businesses
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+### Prerequisites
+Flutter SDK
+IDE
+
+
+### Installing
+
+A step by step series of examples that tell you how to get a development env running
+
+Clone the file to your system.
+Run on android phone or emulator
+
+
+
+## Built With
+
+* This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
 
@@ -14,3 +32,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+
