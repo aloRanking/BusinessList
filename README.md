@@ -7,8 +7,8 @@ An app that allows user to create a list of businesses
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
-Flutter SDK
-IDE
+Flutter SDK 
+Android IDE
 
 
 ### Installing
@@ -19,13 +19,9 @@ Clone the file to your system.
 Run on android phone or emulator
 
 
-<img src ="screenshots/ss1.png" width = "200" height = "350">  <img src ="screenshots/ss2.png" width = "200" height = "350"> 
+<img src ="screenshots/ss1.png" width = "200" height = "350">  <img src ="screenshots/ss2.png" width = "200" height = "350"> <img src ="screenshots/ss3.png" width = "200" height = "350"> <img src ="screenshots/ss4.png" width = "200" height = "350"> 
 
-<img src ="screenshots/ss3.png" width = "200" height = "350"> <img src ="screenshots/ss4.png" width = "200" height = "350"> 
-
-<img src ="screenshots/ss5.png" width = "200" height = "350"> <img src ="screenshots/ss6.png" width = "200" height = "350"> 
-
-<img src ="screenshots/ss7.png" width = "200" height = "350"> <img src ="screenshots/ss8.png" width = "200" height = "350">
+<img src ="screenshots/ss5.png" width = "200" height = "350"> <img src ="screenshots/ss6.png" width = "200" height = "350"> <img src ="screenshots/ss7.png" width = "200" height = "350"> <img src ="screenshots/ss8.png" width = "200" height = "350">
 
 
 
